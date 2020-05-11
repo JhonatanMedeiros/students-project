@@ -14,12 +14,12 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Jhonatan Hardt de Medeiros<https://jhonatanmedeiros.com>
  */
-public final class LoginFrame  extends JFrame {
+public final class LoginFrame extends JFrame {
 
     public LoginFrame() {
         this.setTitle("Login");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(250, 220));
+        this.setPreferredSize(new Dimension(400, 220));
         this.createComponents();
         this.setVisible(true);
         this.getContentPane().setBackground(Color.BLACK);
@@ -30,7 +30,7 @@ public final class LoginFrame  extends JFrame {
     public void createComponents()  {
         
         // Credentials Panel
-        JPanel credentialsPanel = new WhitePanel(new MigLayout("fillx"));
+        JPanel credentialsPanel = new WhitePanel(new MigLayout("filly"));
         
         // Input Username
         JLabel usernameLabel = new JLabel("Username");
@@ -47,7 +47,8 @@ public final class LoginFrame  extends JFrame {
         // Button Submit
         JButton loginButton = new JButton("Submit");
         loginButton.addActionListener((e) -> {
-            // TODO: add event
+            AppFrame appFrame = new AppFrame();
+            this.dispose();
         });
         credentialsPanel.add(loginButton, "wrap");
 
