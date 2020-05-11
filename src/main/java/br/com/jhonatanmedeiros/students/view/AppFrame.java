@@ -32,7 +32,8 @@ public class AppFrame extends JFrame {
         JButton createUserBtn = new JButton("Create User");
         createUserBtn.addActionListener((e) -> {
             // ListFrame listFrame = new ListFrame();
-            // LoginFrame.this.dispose();
+            FormUserFrame formUserFrame = new FormUserFrame();
+             this.dispose();
         });
         panel.add(createUserBtn, "wrap");
         
