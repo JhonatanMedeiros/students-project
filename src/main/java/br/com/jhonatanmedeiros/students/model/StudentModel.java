@@ -4,7 +4,7 @@ package br.com.jhonatanmedeiros.students.model;
  *
  * @author Jhonatan Hardt de Medeiros<https://jhonatanmedeiros.com>
  */
-public class UserModel {
+public class StudentModel {
     
     private String name; // required
     private String numberContract; // required and uniq
@@ -17,7 +17,7 @@ public class UserModel {
     private String gener; // required
     private String picture;
 
-    public UserModel(String name, String numberContract, String birthday, String rg, String cpf, String course, String gener) {
+    public StudentModel(String name, String numberContract, String birthday, String rg, String cpf, String course, String gener) {
         this.name = name;
         this.numberContract = numberContract;
         this.birthday = birthday;

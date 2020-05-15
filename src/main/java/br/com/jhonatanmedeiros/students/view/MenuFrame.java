@@ -1,5 +1,6 @@
 package br.com.jhonatanmedeiros.students.view;
 
+import br.com.jhonatanmedeiros.students.service.StudentService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -16,11 +17,13 @@ public class MenuFrame extends JFrame {
     
     private final JButton buttonStudent = new JButton();;
     private final JLabel labelTitle = new JLabel();
+    
+    private final StudentService studentService = new StudentService();
 
     public MenuFrame() {
         this.setTitle("Menu");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(550, 700));
+        this.setPreferredSize(new Dimension(300, 250));
         this.createComponents();
         this.setVisible(true);
         this.getContentPane().setBackground(Color.WHITE);
@@ -39,7 +42,7 @@ public class MenuFrame extends JFrame {
         buttonStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FormListStudent frm = new FormListStudent();
+                FormListStudent frm = new FormListStudent(studentService);
                 frm.setLocationRelativeTo(null);
                 frm.setVisible(true);
             }

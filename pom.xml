@@ -13,9 +13,9 @@
     
     <dependencies>
         <dependency>
-            <groupId>com.miglayout</groupId>
-            <artifactId>miglayout</artifactId>
-            <version>3.7.4</version>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE113</version>
         </dependency>
     </dependencies>
 </project>

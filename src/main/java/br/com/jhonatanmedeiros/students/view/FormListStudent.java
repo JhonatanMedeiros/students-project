@@ -1,8 +1,13 @@
 package br.com.jhonatanmedeiros.students.view;
 
+import br.com.jhonatanmedeiros.students.model.StudentModel;
+import br.com.jhonatanmedeiros.students.service.StudentService;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Jhonatan Hardt de Medeiros<https://jhonatanmedeiros.com>
  */
 public class FormListStudent extends JFrame {
-    
+
+    private static List<StudentModel> studentList = new ArrayList<>();
     private final JScrollPane scrollPanel = new JScrollPane();
     private final JTable listStudentsTable = new JTable();
     private final JButton btnCreateSutend = new JButton();
@@ -26,9 +32,11 @@ public class FormListStudent extends JFrame {
     private final JButton btnSearch = new JButton();
     private final JTextField inputTextSearch = new JTextField();
     private final JLabel labelTitle = new JLabel();
-   
 
-    public FormListStudent() {
+    public StudentService studentService;
+
+    public FormListStudent(StudentService studentService) {
+        this.studentService = studentService;
         this.setTitle("Lista de Alunos");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.createComponents();
@@ -37,7 +45,7 @@ public class FormListStudent extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
     }
-    
+
     private void createComponents() {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -46,26 +54,24 @@ public class FormListStudent extends JFrame {
         });
 
         listStudentsTable.setModel(new DefaultTableModel(
-            new Object [][] {
-                // { null, null, null, null, null, null, null, null, },
-            },
-            new String [] {
-                "Matricula",
-                "Nome",
-                "RG",
-                "CPF",
-                "Curso",
-                "Data da Matrícula",
-                "Observações",
-                "Gênero",
-            }
+                new Object[][]{},
+                new String[]{
+                    "Matricula",
+                    "Nome",
+                    "RG",
+                    "CPF",
+                    "Curso",
+                    "Data da Matrícula",
+                    "Observações",
+                    "Sexo"
+                }
         ) {
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean[]{
                 false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         listStudentsTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,10 +86,7 @@ public class FormListStudent extends JFrame {
         btnCreateSutend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FormUserFrame a = new FormUserFrame();
-                a.setLocationRelativeTo(null);
-                a.setVisible(true);
-                a.setResizable(false);
+                openFormUser(evt);
             }
         });
 
@@ -92,7 +95,6 @@ public class FormListStudent extends JFrame {
         btnEditStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // abrirCadastroAlunoAlteracaoActionPerformed(evt);
             }
         });
 
@@ -101,7 +103,6 @@ public class FormListStudent extends JFrame {
         btnRemoveStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // removerAlunoActionPerformed(evt);
             }
         });
 
@@ -110,19 +111,16 @@ public class FormListStudent extends JFrame {
         inputTextSearch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // jTextField1MouseClicked(evt);
             }
         });
         inputTextSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // jTextField1ActionPerformed(evt);
             }
         });
         inputTextSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                // jTextField1KeyPressed(evt);
             }
         });
 
@@ -141,60 +139,93 @@ public class FormListStudent extends JFrame {
         btnCloseWindow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // fecharJanelaActionPerformed(evt);
             }
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTitle)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(275, 275, 275)
-                                        .addComponent(btnCreateSutend, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(inputTextSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEditStudent, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRemoveStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(btnCloseWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(9, 9, 9))
+                                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(labelTitle)
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addGap(275, 275, 275)
+                                                                        .addComponent(btnCreateSutend, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(inputTextSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(btnEditStudent, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(btnRemoveStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(4, 4, 4)
+                                                        .addComponent(btnCloseWindow, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(9, 9, 9))
         );
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(labelTitle)
-                .addGap(18, 18, 18)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch)
-                    .addComponent(inputTextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCloseWindow)
-                    .addComponent(btnRemoveStudent)
-                    .addComponent(btnEditStudent)
-                    .addComponent(btnCreateSutend))
-                .addContainerGap())
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(labelTitle)
+                        .addGap(18, 18, 18)
+                        .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnSearch)
+                                .addComponent(inputTextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCloseWindow)
+                                .addComponent(btnRemoveStudent)
+                                .addComponent(btnEditStudent)
+                                .addComponent(btnCreateSutend))
+                        .addContainerGap())
         );
 
         pack();
-        
+        this.loadStudents();
+
+    }
+
+    private void openFormUser(ActionEvent evt) {
+        FormUserFrame a = new FormUserFrame(this);
+        a.setLocationRelativeTo(null);
+        a.setVisible(true);
+        a.setResizable(false);
+    }
+
+    public void loadStudents() {
+        System.out.println("loadStudents");
+
+        FormListStudent.studentList = studentService.getAll();
+
+        DefaultTableModel tabela = (DefaultTableModel) listStudentsTable.getModel();
+
+        tabela.setNumRows(0);
+
+        for (StudentModel s : FormListStudent.studentList) {
+
+            Object[] obj = new Object[]{
+                s.getNumberContract(),
+                s.getName(),
+                s.getRg(),
+                s.getCpf(),
+                s.getCourse(),
+                s.getRegisterDate(),
+                s.getObservation(),
+                s.getGener()
+            };
+            tabela.addRow(obj);
+
+        }
     }
 
 }
