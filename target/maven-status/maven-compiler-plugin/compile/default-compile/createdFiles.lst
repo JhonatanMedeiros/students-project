@@ -1,8 +1,6 @@
-br/com/jhonatanmedeiros/students/view/WhitePanel.class
 br/com/jhonatanmedeiros/students/view/FormUserFrame.class
+br/com/jhonatanmedeiros/students/view/WhitePanel.class
 br/com/jhonatanmedeiros/students/view/ListFrame$1.class
-br/com/jhonatanmedeiros/students/view/AppFrame.class
-br/com/jhonatanmedeiros/students/view/LoginFrame.class
 br/com/jhonatanmedeiros/students/service/UserService.class
 br/com/jhonatanmedeiros/students/view/ListFrame.class
 br/com/jhonatanmedeiros/students/model/UserModel.class

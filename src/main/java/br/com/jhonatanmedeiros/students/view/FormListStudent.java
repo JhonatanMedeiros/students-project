@@ -47,24 +47,17 @@ public class FormListStudent extends JFrame {
 
         listStudentsTable.setModel(new DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                // { null, null, null, null, null, null, null, null, },
             },
             new String [] {
-                "ID", "Matricula", "Nome"
+                "Matricula",
+                "Nome",
+                "RG",
+                "CPF",
+                "Curso",
+                "Data da Matrícula",
+                "Observações",
+                "Gênero",
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -82,16 +75,19 @@ public class FormListStudent extends JFrame {
         });
         scrollPanel.setViewportView(listStudentsTable);
 
-        btnCreateSutend.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
+        btnCreateSutend.setFont(new java.awt.Font("Candara", 0, 16));
         btnCreateSutend.setText("Cadastrar");
         btnCreateSutend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // abrirCadastroAlunoActionPerformed(evt);
+                FormUserFrame a = new FormUserFrame();
+                a.setLocationRelativeTo(null);
+                a.setVisible(true);
+                a.setResizable(false);
             }
         });
 
-        btnEditStudent.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
+        btnEditStudent.setFont(new java.awt.Font("Candara", 0, 16));
         btnEditStudent.setText("Alterar");
         btnEditStudent.addActionListener(new ActionListener() {
             @Override
@@ -100,7 +96,7 @@ public class FormListStudent extends JFrame {
             }
         });
 
-        btnRemoveStudent.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
+        btnRemoveStudent.setFont(new java.awt.Font("Candara", 0, 16));
         btnRemoveStudent.setText("Remover");
         btnRemoveStudent.addActionListener(new ActionListener() {
             @Override
@@ -110,7 +106,7 @@ public class FormListStudent extends JFrame {
         });
 
         inputTextSearch.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
-        inputTextSearch.setText("Nome");
+        inputTextSearch.setText("");
         inputTextSearch.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -132,16 +128,14 @@ public class FormListStudent extends JFrame {
 
         btnSearch.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         btnSearch.setText("Buscar");
-        btnSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // jButton6ActionPerformed(evt);
-            }
+        btnSearch.addActionListener((java.awt.event.ActionEvent evt) -> {
+            // jButton6ActionPerformed(evt);
         });
 
         labelTitle.setFont(new java.awt.Font("Candara", 0, 33)); // NOI18N
         labelTitle.setText("Lista de Alunos");
 
+        // Button "Close Window"
         btnCloseWindow.setFont(new java.awt.Font("Candara", 0, 16)); // NOI18N
         btnCloseWindow.setText("Voltar");
         btnCloseWindow.addActionListener(new ActionListener() {

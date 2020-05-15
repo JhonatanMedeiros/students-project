@@ -1,6 +1,5 @@
 package br.com.jhonatanmedeiros.students.main;
 
-import br.com.jhonatanmedeiros.students.view.LoginFrame;
 import br.com.jhonatanmedeiros.students.view.MenuFrame;
 
 /**
